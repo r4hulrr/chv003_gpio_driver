@@ -98,14 +98,109 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 }
 
 /*
-data read and write
+GPIO read from input pin
+
+
+description         - returns value stored in given GPIO pin 
+
+input param1        - GPIO port base address 
+input param2        - GPIO pin number 
+
+return              - value stored in the given GPIO pin
+
+note                - none
 */
 
-uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber);
-uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx);
-void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber, uint8_t value);
-void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t value);
-void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber);
+uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber)
+{
+    uint8_t value;
+    value = (uint8_t)((pGPIOx->INDR >> Pinnumber) & 0x00000001);
+    return value;
+}
+
+/*
+GPIO read from input port
+
+
+description         - returns value stored in given GPIO port 
+
+input param1        - GPIO port base address 
+
+return              - value stored in the given GPIO port
+
+note                - none
+*/
+
+uint8_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
+{
+    uint8_t value;
+    value = (uint8_t)pGPIOx->INDR;
+    return value;
+}
+
+/*
+GPIO write to output pin
+
+
+description         - writes given value to stated GPIO pin 
+
+input param1        - GPIO port base address 
+input param2        - GPIO pin number 
+input param3        - value to be written
+
+return              - none
+
+note                - none
+*/
+
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber, uint8_t value)
+{
+    if(value == SET)
+    {
+        pGPIOx->OUTDR |= ((1 << Pinnumber));
+    }else if (value == RESET)
+    {
+        pGPIOx->OUTDR &= (~(1 << Pinnumber));
+    }
+}
+
+/*
+GPIO write to output port
+
+
+description         - writes given value to stated GPIO port 
+
+input param1        - GPIO port base address 
+input param2        - value to be written
+
+return              - none
+
+note                - none
+*/
+
+void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t value)
+{
+    pGPIOx->OUTDR = value;
+}
+
+/*
+GPIO toggle output pin
+
+
+description         - toggles value in stated GPIO pin 
+
+input param1        - GPIO port base address
+input param2        - GPIO pin number 
+
+return              - none
+
+note                - none
+*/
+
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber)
+{
+    pGPIOx->OUTDR ^= (1 << Pinnumber);
+}
 
 /*
 IRQ Config and ISR handling
