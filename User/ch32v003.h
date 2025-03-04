@@ -1,31 +1,50 @@
 #include <stdio.h>
 
 /*
-base address of Flash and SRAM memory
+base address of Flash , SRAM memory and peripherals
 */
 
 #define FLASH_BASEADDR              0x00000000U
 #define SRAM_BASEADDR               0x20000000U
-
-/*
-base address of peripherals
-*/
-
 #define PERIPH_BASEADDR             0x40000000U
 
 /*
-base address of GPIO Ports 
+base address of peripherals available
 */
+
+#define AFIO_BASEADDR               (PERIPH_BASEADDR + 0x00010000)
+#define EXTI_BASEADDR               (PERIPH_BASEADDR + 0x00010400)
 
 #define GPIOA_BASEADDR              (PERIPH_BASEADDR + 0x00010800)
 #define GPIOC_BASEADDR              (PERIPH_BASEADDR + 0x00011000)
 #define GPIOD_BASEADDR              (PERIPH_BASEADDR + 0x00011400)
 
+#define RCC_BASEADDR                (PERIPH_BASEADDR + 0x00021000) 
+
 /*
-base address of RCC
+peripheral register definition structure for AFIO
 */
 
-#define RCC_BASEADDR                (PERIPH_BASEADDR + 0x00021000) 
+typedef struct
+{
+    uint32_t          RESERVED;     /*                                      address offset: 0x00*/
+    volatile uint32_t PCFR1;        /* Remap register 1                     address offset: 0x04*/
+    volatile uint32_t EXTICR;       /* External interrupt config register   address offset: 0x08*/
+} AFIO_RegDef_t;
+
+/*
+peripheral register definition structure for EXTI
+*/
+
+typedef struct
+{
+    volatile uint32_t INTENR;       /* Interrupt enable register                address offset: 0x00*/
+    volatile uint32_t EVENR;        /* Event enable register                    address offset: 0x04*/
+    volatile uint32_t RTENR;        /* Rising edge trigger enable register      address offset: 0x08*/
+    volatile uint32_t FTENR;        /* Falling edge trigger enable register     address offset: 0x0C*/
+    volatile uint32_t SWIEVR;       /* Soft interrupt event register            address offset: 0x10*/
+    volatile uint32_t INTFR;        /* Interrupt flag register                  address offset: 0x14*/
+} EXTI_RegDef_t;
 
 /*
 peripheral register definition structure for GPIO
