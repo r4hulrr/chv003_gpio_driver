@@ -84,6 +84,14 @@ clock disable macros for GPIOx peripherals
 #define GPIOC_PCLK_DI()             (RCC->APB2PCENR &= ~(1<<4)) 
 #define GPIOD_PCLK_DI()             (RCC->APB2PCENR &= ~(1<<5))
 
+/*
+macros to reset GPIOx peripherals
+*/
+
+#define GPIOA_RESET()               do {RCC->APB2PRSTR |= (1<<2) ; RCC->APB2PRSTR &= ~(1<<2);} while (0)
+#define GPIOC_RESET()               do {RCC->APB2PRSTR |= (1<<4) ; RCC->APB2PRSTR &= ~(1<<4);} while (0)
+#define GPIOD_RESET()               do {RCC->APB2PRSTR |= (1<<5) ; RCC->APB2PRSTR &= ~(1<<5);} while (0)
+
 //generic macros
 
 #define ENABLE              1

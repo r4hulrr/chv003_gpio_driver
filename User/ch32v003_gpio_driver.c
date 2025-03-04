@@ -69,7 +69,33 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
     pGPIOHandle->pGPIOx->CFGLR |= temp;
 
 }
-void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
+
+/*
+GPIO deinit
+
+
+description         - resets given GPIO port
+
+input param1        - GPIO port base address
+
+return              - none
+
+note                - none
+*/
+
+void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
+{
+    if(pGPIOx == GPIOA)
+    {
+        GPIOA_RESET();
+    }else if(pGPIOx == GPIOC)
+    {
+        GPIOC_RESET();
+    }else if(pGPIOx == GPIOD)
+    {
+        GPIOD_RESET();
+    }
+}
 
 /*
 data read and write
