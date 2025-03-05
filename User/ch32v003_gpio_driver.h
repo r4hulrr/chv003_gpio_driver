@@ -70,6 +70,9 @@ GPIO pin possible modes
 #define GPIO_MODE_OUT10MHz      1
 #define GPIO_MODE_OUT2MHz       2
 #define GPIO_MODE_OUT30MHz      3
+#define GPIO_MODE_IT_RT         4
+#define GPIO_MODE_IT_FT         5
+
 
 /*
 @GPIO_PIN_TYPES
@@ -84,3 +87,4 @@ GPIO pin possible modes
 #define GPIO_TYPE_OUT_OD        1       // open-drain output
 #define GPIO_MODE_AF_PP         2       // alternate function with push-pull output
 #define GPIO_MODE_AF_OD         3       // alternate function with open-drain output
+

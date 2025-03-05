@@ -22,6 +22,18 @@ base address of peripherals available
 #define RCC_BASEADDR                (PERIPH_BASEADDR + 0x00021000) 
 
 /*
+PFIC Register address
+*/
+
+#define PFIC_IENR1                  ((volatile uint32_t*)0xE000E100)
+#define PFIC_IENR2                  ((volatile uint32_t*)0xE000E104)
+
+#define PFIC_IRER1                  ((volatile uint32_t*)0xE000E180)
+#define PFIC_IRER2                  ((volatile uint32_t*)0xE000E184)
+
+#define PFIC_IPRIOR                 ((volatile uint8_t*)0xE000E400)
+
+/*
 peripheral register definition structure for AFIO
 */
 
@@ -82,6 +94,8 @@ typedef struct
 peripheral definitions 
 */
 
+#define AFIO                        ((AFIO_RegDef_t*)AFIO_BASEADDR)
+#define EXTI                        ((EXTI_RegDef_t*)EXTI_BASEADDR)
 #define GPIOA                       ((GPIO_RegDef_t*)GPIOA_BASEADDR)
 #define GPIOC                       ((GPIO_RegDef_t*)GPIOC_BASEADDR)
 #define GPIOD                       ((GPIO_RegDef_t*)GPIOD_BASEADDR)
@@ -110,6 +124,14 @@ macros to reset GPIOx peripherals
 #define GPIOA_RESET()               do {RCC->APB2PRSTR |= (1<<2) ; RCC->APB2PRSTR &= ~(1<<2);} while (0)
 #define GPIOC_RESET()               do {RCC->APB2PRSTR |= (1<<4) ; RCC->APB2PRSTR &= ~(1<<4);} while (0)
 #define GPIOD_RESET()               do {RCC->APB2PRSTR |= (1<<5) ; RCC->APB2PRSTR &= ~(1<<5);} while (0)
+
+/*
+macro that returns a code for a given gpio base address(x)
+*/
+
+#define GPIO_BASEADDR_TOCODE(x)  ((x == GPIOA) ? 0 : \
+                                  (x == GPIOC) ? 2 : \
+                                  (x == GPIOD) ? 3 : -1 )
 
 //generic macros
 

@@ -56,17 +56,41 @@ note                - none
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
     uint32_t temp = 0; 
 
-    // clears the CNF and MODE bits for the specific GPIO Pin in the CFGLR register         
-    pGPIOHandle->pGPIOx->CFGLR &= ~( 0xF << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+    if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_OUT30MHz)
+    {
+        // clears the CNF and MODE bits for the specific GPIO Pin in the CFGLR register         
+        pGPIOHandle->pGPIOx->CFGLR &= ~( 0xF << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
 
-    // configures mode bits
-    temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+        // configures mode bits
+        temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 
-    // configures type bits
-    temp |= pGPIOHandle->GPIO_PinConfig.GPIO_PinType << (2+(4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+        // configures type bits
+        temp |= pGPIOHandle->GPIO_PinConfig.GPIO_PinType << (2 + (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
 
-    // modifies the CFGLR register with the given mode and type for the specific pin
-    pGPIOHandle->pGPIOx->CFGLR |= temp;
+        // modifies the CFGLR register with the given mode and type for the specific pin
+        pGPIOHandle->pGPIOx->CFGLR |= temp;
+    }else
+    {   
+        // enables the exti line based on the given GPIO Pin number and port
+        uint8_t portcode = GPIO_BASEADDR_TOCODE(pGPIOHandle->pGPIOx);
+        AFIO->EXTICR |= (portcode << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+        EXTI->INTENR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+
+        // configures for falling edge and rising edge trigger
+        if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FT)
+        {
+            // enables falling edge trigger on selected EXTI line
+            EXTI->FTENR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+            // clears corresponding rising edge trigger
+            EXTI->RTENR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+        }else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RT)
+        {
+            // enables rising edge trigger on selected EXTI line
+            EXTI->RTENR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+            // clears corresponding falling edge trigger
+            EXTI->FTENR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+        }
+    }
 
 }
 
@@ -204,7 +228,63 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t Pinnumber)
 
 /*
 IRQ Config and ISR handling
+
+
+description         - enables or disables a specific interrupt along with its priority 
+
+input param1        - Interrupt no.
+input param2        - Interrupt priority
+input param3        - Enable or disable macro
+
+return              - none
+
+note                - can be used with the GPIO init to enable the EXTI interrupt in the CPU's PFIC
+*/
+void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
+{
+    if(EnorDi == ENABLE)
+    {
+        if(IRQNumber <= 31)
+        {
+            // configure PFCI IENR1 register
+            *PFIC_IENR1 |= ( 1 << IRQNumber);
+        }else if (IRQNumber > 31 && IRQNumber <= 38)
+        {
+            // configure PFCI IENR2 register
+            *PFIC_IENR2 |= (1 << (IRQNumber - 32));
+        }
+        PFIC_IPRIOR[IRQNumber] = IRQPriority;
+    }else 
+    {
+        if(IRQNumber <= 31)
+        {
+            // configure PFCI IRER1 register
+            *PFIC_IRER1 |= ( 1 << IRQNumber);
+        }else if (IRQNumber > 31 && IRQNumber <= 38)
+        {
+            // configure PFCI IRER2 register
+            *PFIC_IRER2 |= (1 << (IRQNumber - 32));
+        }
+    }
+}
+
+/*
+IRQ handling
+
+
+description         - can be used to check if the EXTI interrupt configured is triggered
+
+input param1        - GPIO Pin number
+
+return              - none
+
+note                - none
 */
 
-void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi);
-void GPIO_IRQHandling(uint8_t Pinnumber);
+void GPIO_IRQHandling(uint8_t Pinnumber)
+{
+    if(EXTI->INTFR & (1 << Pinnumber))
+    {
+        EXTI->INTFR |= ( 1 << Pinnumber);
+    }
+}
