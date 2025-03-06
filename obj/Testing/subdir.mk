@@ -1,0 +1,20 @@
+################################################################################
+# MRS Version: 2.1.0
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../Testing/SWDIO_testing.c 
+
+C_DEPS += \
+./Testing/SWDIO_testing.d 
+
+OBJS += \
+./Testing/SWDIO_testing.o 
+
+
+
+# Each subdirectory must supply rules for building sources it contributes
+Testing/%.o: ../Testing/%.c
+	@	riscv-none-embed-gcc -march=rv32ecxw -mabi=ilp32e -msmall-data-limit=0 -msave-restore -fmax-errors=20 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized -g -I"c:/Users/HP/Documents/Projects/CHV003/GPIO Driver/CHV003_GPIO_Driver/Core" -I"c:/Users/HP/Documents/Projects/CHV003/GPIO Driver/CHV003_GPIO_Driver/User" -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"

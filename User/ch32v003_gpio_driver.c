@@ -56,6 +56,8 @@ note                - none
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
     uint32_t temp = 0; 
 
+    GPIO_PeriClockControl(pGPIOHandle->pGPIOx,ENABLE);
+
     if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_OUT30MHz)
     {
         // clears the CNF and MODE bits for the specific GPIO Pin in the CFGLR register         

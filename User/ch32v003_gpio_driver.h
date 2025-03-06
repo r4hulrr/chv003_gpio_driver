@@ -81,10 +81,10 @@ GPIO pin possible modes
 
 #define GPIO_TYPE_IN_ANALOG     0       // Analog input mode
 #define GPIO_TYPE_IN_FLOAT      1       // floating input mode
-#define GPIO_MODE_IN_PUPD       2       // input with pull-up and pull-down mode
+#define GPIO_TYPE_IN_PUPD       2       // input with pull-up and pull-down mode
 
 #define GPIO_TYPE_OUT_PP        0       // push-pull output
 #define GPIO_TYPE_OUT_OD        1       // open-drain output
-#define GPIO_MODE_AF_PP         2       // alternate function with push-pull output
-#define GPIO_MODE_AF_OD         3       // alternate function with open-drain output
+#define GPIO_TYPE_AF_PP         2       // alternate function with push-pull output
+#define GPIO_TYPE_AF_OD         3       // alternate function with open-drain output
 
