@@ -23,7 +23,7 @@ void R_LED_TEST(void)
     R_delay();
 }
 
-void R_UART_TEST(void)
+void R_INTERRUPT_TEST(void)
 {
     // Initialize GPIO PC2 as IT_FT
     R_GPIO_Handle_t interrupt;
