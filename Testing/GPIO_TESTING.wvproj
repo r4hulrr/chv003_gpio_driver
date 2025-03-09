@@ -20,7 +20,7 @@
 				"name": "*.wvproj"
 			}
 		],
-		"projectName": "Testing_LED",
+		"projectName": "GPIO_TESTING",
 		"architecture": "RISC-V",
 		"projectType": "c"
 	},
@@ -59,7 +59,7 @@
 					"other_target_flags": ""
 				},
 				"optimization": {
-					"level": "size",
+					"level": "none",
 					"message_length": true,
 					"char_is_signed": true,
 					"function_sections": true,
@@ -589,11 +589,11 @@
 		]
 	},
 	"flashConfig": {
-		"mcutype": "CH32V003",
+		"mcutype": "CH32V00x",
 		"address": "0x08000000",
-		"target_path": "obj/Testing_LED.hex",
+		"target_path": "obj/GPIO_TESTING.hex",
 		"clkSpeed": "High",
-		"debug_interface_mode": "",
+		"debug_interface_mode": "1-wire serial",
 		"erase": true,
 		"program": true,
 		"verify": true,
@@ -670,8 +670,8 @@
 			"showDebugOutputTimestamps": true
 		},
 		"reserve": {
-			"PROGRAM_NAME": "obj/Testing_LED.elf",
-			"PROJECT_ATTR": "Testing_LED",
+			"PROGRAM_NAME": "obj/GPIO_TESTING.elf",
+			"PROJECT_ATTR": "GPIO_TESTING",
 			"PROJECT_BUILD_CONFIG_AUTO_ATTR": true,
 			"PROJECT_BUILD_CONFIG_ID_ATTR": "",
 			"ATTR_BUILD_BEFORE_LAUNCH_ATTR": 2,

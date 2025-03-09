@@ -3,8 +3,8 @@
 
 void R_delay(void);
 
-void R_LED_TEST_SETUP(void);
-
 void R_LED_TEST(void);
 
 void R_INTERRUPT_TEST(void);
+
+void R_UART_TEST(uint8_t* value);

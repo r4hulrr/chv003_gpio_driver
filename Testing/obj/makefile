@@ -38,34 +38,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 SECONDARY_FLASH += \
-Testing_LED.hex \
+GPIO_TESTING.hex \
 
 SECONDARY_LIST += \
-Testing_LED.lst \
+GPIO_TESTING.lst \
 
 SECONDARY_SIZE += \
-Testing_LED.siz \
+GPIO_TESTING.siz \
 
 
 # All Target
 all: 
 	$(MAKE) --no-print-directory main-build 
 
-main-build: Testing_LED.elf secondary-outputs
+main-build: GPIO_TESTING.elf secondary-outputs
 
 # Tool invocations
-Testing_LED.elf: $(OBJS) $(USER_OBJS)
-	@	riscv-none-embed-gcc -march=rv32ecxw -mabi=ilp32e -msmall-data-limit=0 -msave-restore -fmax-errors=20 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized -g -T "c:/Users/HP/mounriver-studio-projects/Testing_GPIO/Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"Testing_LED.map" --specs=nano.specs --specs=nosys.specs -o "Testing_LED.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintf
-Testing_LED.hex: Testing_LED.elf
-	@	riscv-none-embed-objcopy -O ihex "Testing_LED.elf" "Testing_LED.hex"
-Testing_LED.lst: Testing_LED.elf
-	@	riscv-none-embed-objdump --all-headers --demangle --disassemble -M xw "Testing_LED.elf" > "Testing_LED.lst"
-Testing_LED.siz: Testing_LED.elf
-	riscv-none-embed-size --format=berkeley "Testing_LED.elf"
+GPIO_TESTING.elf: $(OBJS) $(USER_OBJS)
+	@	riscv-none-embed-gcc -march=rv32ecxw -mabi=ilp32e -msmall-data-limit=0 -msave-restore -fmax-errors=20 -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized -g -T "c:/Users/HP/Documents/Projects/CHV003/GPIO Driver/CHV003_GPIO_Driver/Testing/Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"GPIO_TESTING.map" --specs=nano.specs --specs=nosys.specs -o "GPIO_TESTING.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintf
+GPIO_TESTING.hex: GPIO_TESTING.elf
+	@	riscv-none-embed-objcopy -O ihex "GPIO_TESTING.elf" "GPIO_TESTING.hex"
+GPIO_TESTING.lst: GPIO_TESTING.elf
+	@	riscv-none-embed-objdump --all-headers --demangle --disassemble -M xw "GPIO_TESTING.elf" > "GPIO_TESTING.lst"
+GPIO_TESTING.siz: GPIO_TESTING.elf
+	riscv-none-embed-size --format=berkeley "GPIO_TESTING.elf"
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(S_DEPS)$(S_UPPER_DEPS)$(ASM_DEPS)$(ASM_UPPER_DEPS)$(C_DEPS) Testing_LED.elf
+	-$(RM) $(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(S_DEPS)$(S_UPPER_DEPS)$(ASM_DEPS)$(ASM_UPPER_DEPS)$(C_DEPS) GPIO_TESTING.elf
 
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_LIST) $(SECONDARY_SIZE)
 
