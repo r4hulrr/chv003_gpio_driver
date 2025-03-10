@@ -4,8 +4,8 @@
 		{
 			"type": "mrs-debugger",
 			"request": "launch",
-			"name": "Testing_LED",
-			"cwd": "c:\\Users\\HP\\mounriver-studio-projects\\Testing_GPIO",
+			"name": "GPIO_TESTING",
+			"cwd": "c:\\Users\\HP\\Documents\\Projects\\CHV003\\GPIO Driver\\CHV003_GPIO_Driver\\Testing",
 			"openOCDCfg": {
 				"useLocalOpenOCD": true,
 				"executable": "c:/MounRiver/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/openocd.exe",
@@ -39,8 +39,8 @@
 					"additionalCommands": []
 				},
 				"loadedFiles": {
-					"executableFile": "c:\\Users\\HP\\mounriver-studio-projects\\Testing_GPIO\\obj\\Testing_LED.elf",
-					"symbolFile": "c:\\Users\\HP\\mounriver-studio-projects\\Testing_GPIO\\obj\\Testing_LED.elf",
+					"executableFile": "c:\\Users\\HP\\Documents\\Projects\\CHV003\\GPIO Driver\\CHV003_GPIO_Driver\\Testing\\obj\\GPIO_TESTING.elf",
+					"symbolFile": "c:\\Users\\HP\\Documents\\Projects\\CHV003\\GPIO Driver\\CHV003_GPIO_Driver\\Testing\\obj\\GPIO_TESTING.elf",
 					"executableFileOffset": 0,
 					"symbolFileOffset": 0
 				},

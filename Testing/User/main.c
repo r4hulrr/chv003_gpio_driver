@@ -83,7 +83,7 @@ int main(void)
 
     USARTx_CFG(); // Initialize USART1 (PD5=RX, PD6=TX)
 
-    uint8_t UART_value[2];
+    uint8_t UART_value[2];  
 
     while (1)
     {
@@ -95,9 +95,14 @@ int main(void)
             while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
             printf("Received and inverted: %x\r\n", val);
         }
+
+        //UART TEST
+
         R_UART_TEST(UART_value);
         printf("UART Test Pin value is %d\n",UART_value[0]);
         printf("UART Test Port value is %d\n",UART_value[1]);
+
+        
     }
 }
 
