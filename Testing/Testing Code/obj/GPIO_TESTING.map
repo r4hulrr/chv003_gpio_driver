@@ -16,12 +16,14 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 ./User/ch32v003_gpio_driver.o
  .text.R_GPIO_DeInit
                 0x0000000000000000       0x52 ./User/ch32v003_gpio_driver.o
- .text.R_GPIO_ToggleOutputPin
-                0x0000000000000000        0xe ./User/ch32v003_gpio_driver.o
- .text.R_GPIO_IRQConfig
-                0x0000000000000000       0x88 ./User/ch32v003_gpio_driver.o
- .text.R_GPIO_IRQHandling
+ .text.R_GPIO_ReadFromInputPin
+                0x0000000000000000        0xa ./User/ch32v003_gpio_driver.o
+ .text.R_GPIO_ReadFromInputPort
+                0x0000000000000000        0x8 ./User/ch32v003_gpio_driver.o
+ .text.R_GPIO_WriteToOutputPin
                 0x0000000000000000       0x24 ./User/ch32v003_gpio_driver.o
+ .text.R_GPIO_WriteToOutputPort
+                0x0000000000000000        0x4 ./User/ch32v003_gpio_driver.o
  .text          0x0000000000000000        0x0 ./User/ch32v00x_it.o
  .data          0x0000000000000000        0x0 ./User/ch32v00x_it.o
  .bss           0x0000000000000000        0x0 ./User/ch32v00x_it.o
@@ -35,10 +37,11 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./User/testing.o
  .data          0x0000000000000000        0x0 ./User/testing.o
  .bss           0x0000000000000000        0x0 ./User/testing.o
+ .text.R_delay  0x0000000000000000       0x2e ./User/testing.o
  .text.R_LED_TEST
                 0x0000000000000000       0x5c ./User/testing.o
- .text.R_INTERRUPT_TEST
-                0x0000000000000000       0x90 ./User/testing.o
+ .text.R_UART_TEST
+                0x0000000000000000       0xd4 ./User/testing.o
  .text          0x0000000000000000        0x0 ./Startup/startup_ch32v00x.o
  .data          0x0000000000000000        0x0 ./Startup/startup_ch32v00x.o
  .bss           0x0000000000000000        0x0 ./Startup/startup_ch32v00x.o
@@ -988,7 +991,7 @@ END GROUP
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                PROVIDE (_highcode_vma_end = .)
 
-.text           0x00000000000000a0     0x1028
+.text           0x00000000000000a0      0xfe8
                 0x00000000000000a0                . = ALIGN (0x4)
  *(.text)
  .text          0x00000000000000a0       0x14 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32ecxw/ilp32e\libgcc.a(save-restore.o)
@@ -1010,172 +1013,167 @@ END GROUP
  .text.R_GPIO_Init
                 0x00000000000001b0       0xba ./User/ch32v003_gpio_driver.o
                 0x00000000000001b0                R_GPIO_Init
- .text.R_GPIO_ReadFromInputPin
-                0x000000000000026a        0xa ./User/ch32v003_gpio_driver.o
-                0x000000000000026a                R_GPIO_ReadFromInputPin
- .text.R_GPIO_ReadFromInputPort
-                0x0000000000000274        0x8 ./User/ch32v003_gpio_driver.o
-                0x0000000000000274                R_GPIO_ReadFromInputPort
- .text.R_GPIO_WriteToOutputPin
-                0x000000000000027c       0x24 ./User/ch32v003_gpio_driver.o
-                0x000000000000027c                R_GPIO_WriteToOutputPin
- .text.R_GPIO_WriteToOutputPort
-                0x00000000000002a0        0x4 ./User/ch32v003_gpio_driver.o
-                0x00000000000002a0                R_GPIO_WriteToOutputPort
+ .text.R_GPIO_ToggleOutputPin
+                0x000000000000026a        0xe ./User/ch32v003_gpio_driver.o
+                0x000000000000026a                R_GPIO_ToggleOutputPin
+ .text.R_GPIO_IRQConfig
+                0x0000000000000278       0x88 ./User/ch32v003_gpio_driver.o
+                0x0000000000000278                R_GPIO_IRQConfig
+ .text.R_GPIO_IRQHandling
+                0x0000000000000300       0x24 ./User/ch32v003_gpio_driver.o
+                0x0000000000000300                R_GPIO_IRQHandling
  .text.NMI_Handler
-                0x00000000000002a4        0x2 ./User/ch32v00x_it.o
-                0x00000000000002a4                NMI_Handler
+                0x0000000000000324        0x2 ./User/ch32v00x_it.o
+                0x0000000000000324                NMI_Handler
  .text.HardFault_Handler
-                0x00000000000002a6       0x10 ./User/ch32v00x_it.o
-                0x00000000000002a6                HardFault_Handler
+                0x0000000000000326       0x10 ./User/ch32v00x_it.o
+                0x0000000000000326                HardFault_Handler
  .text.USARTx_CFG
-                0x00000000000002b6       0xba ./User/main.o
-                0x00000000000002b6                USARTx_CFG
- .text.main     0x0000000000000370       0xca ./User/main.o
-                0x0000000000000370                main
+                0x0000000000000336       0xba ./User/main.o
+                0x0000000000000336                USARTx_CFG
+ .text.main     0x00000000000003f0       0xa4 ./User/main.o
+                0x00000000000003f0                main
  .text.SystemInit
-                0x000000000000043a      0x132 ./User/system_ch32v00x.o
-                0x000000000000043a                SystemInit
+                0x0000000000000494      0x132 ./User/system_ch32v00x.o
+                0x0000000000000494                SystemInit
  .text.SystemCoreClockUpdate
-                0x000000000000056c       0x68 ./User/system_ch32v00x.o
-                0x000000000000056c                SystemCoreClockUpdate
- .text.R_delay  0x00000000000005d4       0x2e ./User/testing.o
-                0x00000000000005d4                R_delay
- .text.R_UART_TEST
-                0x0000000000000602       0xa4 ./User/testing.o
-                0x0000000000000602                R_UART_TEST
+                0x00000000000005c6       0x68 ./User/system_ch32v00x.o
+                0x00000000000005c6                SystemCoreClockUpdate
+ .text.R_INTERRUPT_TEST
+                0x000000000000062e       0x72 ./User/testing.o
+                0x000000000000062e                R_INTERRUPT_TEST
  .text.vector_handler
-                0x00000000000006a6        0x2 ./Startup/startup_ch32v00x.o
-                0x00000000000006a6                TIM1_CC_IRQHandler
-                0x00000000000006a6                SysTick_Handler
-                0x00000000000006a6                PVD_IRQHandler
-                0x00000000000006a6                SPI1_IRQHandler
-                0x00000000000006a6                AWU_IRQHandler
-                0x00000000000006a6                EXTI7_0_IRQHandler
-                0x00000000000006a6                DMA1_Channel4_IRQHandler
-                0x00000000000006a6                ADC1_IRQHandler
-                0x00000000000006a6                DMA1_Channel7_IRQHandler
-                0x00000000000006a6                I2C1_EV_IRQHandler
-                0x00000000000006a6                DMA1_Channel6_IRQHandler
-                0x00000000000006a6                RCC_IRQHandler
-                0x00000000000006a6                TIM1_TRG_COM_IRQHandler
-                0x00000000000006a6                DMA1_Channel1_IRQHandler
-                0x00000000000006a6                DMA1_Channel5_IRQHandler
-                0x00000000000006a6                DMA1_Channel3_IRQHandler
-                0x00000000000006a6                TIM1_UP_IRQHandler
-                0x00000000000006a6                WWDG_IRQHandler
-                0x00000000000006a6                TIM2_IRQHandler
-                0x00000000000006a6                SW_Handler
-                0x00000000000006a6                TIM1_BRK_IRQHandler
-                0x00000000000006a6                DMA1_Channel2_IRQHandler
-                0x00000000000006a6                FLASH_IRQHandler
-                0x00000000000006a6                USART1_IRQHandler
-                0x00000000000006a6                I2C1_ER_IRQHandler
+                0x00000000000006a0        0x2 ./Startup/startup_ch32v00x.o
+                0x00000000000006a0                TIM1_CC_IRQHandler
+                0x00000000000006a0                SysTick_Handler
+                0x00000000000006a0                PVD_IRQHandler
+                0x00000000000006a0                SPI1_IRQHandler
+                0x00000000000006a0                AWU_IRQHandler
+                0x00000000000006a0                EXTI7_0_IRQHandler
+                0x00000000000006a0                DMA1_Channel4_IRQHandler
+                0x00000000000006a0                ADC1_IRQHandler
+                0x00000000000006a0                DMA1_Channel7_IRQHandler
+                0x00000000000006a0                I2C1_EV_IRQHandler
+                0x00000000000006a0                DMA1_Channel6_IRQHandler
+                0x00000000000006a0                RCC_IRQHandler
+                0x00000000000006a0                TIM1_TRG_COM_IRQHandler
+                0x00000000000006a0                DMA1_Channel1_IRQHandler
+                0x00000000000006a0                DMA1_Channel5_IRQHandler
+                0x00000000000006a0                DMA1_Channel3_IRQHandler
+                0x00000000000006a0                TIM1_UP_IRQHandler
+                0x00000000000006a0                WWDG_IRQHandler
+                0x00000000000006a0                TIM2_IRQHandler
+                0x00000000000006a0                SW_Handler
+                0x00000000000006a0                TIM1_BRK_IRQHandler
+                0x00000000000006a0                DMA1_Channel2_IRQHandler
+                0x00000000000006a0                FLASH_IRQHandler
+                0x00000000000006a0                USART1_IRQHandler
+                0x00000000000006a0                I2C1_ER_IRQHandler
  .text.handle_reset
-                0x00000000000006a8       0xb0 ./Startup/startup_ch32v00x.o
-                0x00000000000006a8                handle_reset
+                0x00000000000006a2       0xb0 ./Startup/startup_ch32v00x.o
+                0x00000000000006a2                handle_reset
  .text.DBGMCU_GetCHIPID
-                0x0000000000000758        0xa ./Peripheral/src/ch32v00x_dbgmcu.o
-                0x0000000000000758                DBGMCU_GetCHIPID
+                0x0000000000000752        0xa ./Peripheral/src/ch32v00x_dbgmcu.o
+                0x0000000000000752                DBGMCU_GetCHIPID
  .text.GPIO_Init
-                0x0000000000000762       0x7c ./Peripheral/src/ch32v00x_gpio.o
-                0x0000000000000762                GPIO_Init
+                0x000000000000075c       0x7c ./Peripheral/src/ch32v00x_gpio.o
+                0x000000000000075c                GPIO_Init
  .text.NVIC_PriorityGroupConfig
-                0x00000000000007de        0xa ./Peripheral/src/ch32v00x_misc.o
-                0x00000000000007de                NVIC_PriorityGroupConfig
+                0x00000000000007d8        0xa ./Peripheral/src/ch32v00x_misc.o
+                0x00000000000007d8                NVIC_PriorityGroupConfig
  .text.RCC_AdjustHSICalibrationValue
-                0x00000000000007e8       0x12 ./Peripheral/src/ch32v00x_rcc.o
-                0x00000000000007e8                RCC_AdjustHSICalibrationValue
+                0x00000000000007e2       0x12 ./Peripheral/src/ch32v00x_rcc.o
+                0x00000000000007e2                RCC_AdjustHSICalibrationValue
  .text.RCC_GetClocksFreq
-                0x00000000000007fa       0xa2 ./Peripheral/src/ch32v00x_rcc.o
-                0x00000000000007fa                RCC_GetClocksFreq
+                0x00000000000007f4       0xa2 ./Peripheral/src/ch32v00x_rcc.o
+                0x00000000000007f4                RCC_GetClocksFreq
  .text.RCC_APB2PeriphClockCmd
-                0x000000000000089c       0x1e ./Peripheral/src/ch32v00x_rcc.o
-                0x000000000000089c                RCC_APB2PeriphClockCmd
+                0x0000000000000896       0x1e ./Peripheral/src/ch32v00x_rcc.o
+                0x0000000000000896                RCC_APB2PeriphClockCmd
  .text.USART_Init
-                0x00000000000008ba       0xcc ./Peripheral/src/ch32v00x_usart.o
-                0x00000000000008ba                USART_Init
+                0x00000000000008b4       0xcc ./Peripheral/src/ch32v00x_usart.o
+                0x00000000000008b4                USART_Init
  .text.USART_Cmd
-                0x0000000000000986       0x16 ./Peripheral/src/ch32v00x_usart.o
-                0x0000000000000986                USART_Cmd
+                0x0000000000000980       0x16 ./Peripheral/src/ch32v00x_usart.o
+                0x0000000000000980                USART_Cmd
  .text.USART_SendData
-                0x000000000000099c        0x8 ./Peripheral/src/ch32v00x_usart.o
-                0x000000000000099c                USART_SendData
+                0x0000000000000996        0x8 ./Peripheral/src/ch32v00x_usart.o
+                0x0000000000000996                USART_SendData
  .text.USART_ReceiveData
-                0x00000000000009a4        0x8 ./Peripheral/src/ch32v00x_usart.o
-                0x00000000000009a4                USART_ReceiveData
+                0x000000000000099e        0x8 ./Peripheral/src/ch32v00x_usart.o
+                0x000000000000099e                USART_ReceiveData
  .text.USART_GetFlagStatus
-                0x00000000000009ac        0xa ./Peripheral/src/ch32v00x_usart.o
-                0x00000000000009ac                USART_GetFlagStatus
+                0x00000000000009a6        0xa ./Peripheral/src/ch32v00x_usart.o
+                0x00000000000009a6                USART_GetFlagStatus
  .text.Delay_Init
-                0x00000000000009b6       0x3c ./Debug/debug.o
-                0x00000000000009b6                Delay_Init
+                0x00000000000009b0       0x3c ./Debug/debug.o
+                0x00000000000009b0                Delay_Init
  .text.USART_Printf_Init
-                0x00000000000009f2       0x54 ./Debug/debug.o
-                0x00000000000009f2                USART_Printf_Init
- .text._write   0x0000000000000a46       0x4c ./Debug/debug.o
-                0x0000000000000a46                _write
+                0x00000000000009ec       0x54 ./Debug/debug.o
+                0x00000000000009ec                USART_Printf_Init
+ .text._write   0x0000000000000a40       0x4c ./Debug/debug.o
+                0x0000000000000a40                _write
  .text.printchar
-                0x0000000000000a92       0x48 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000000a92                printchar
- .text.prints   0x0000000000000ada       0xe6 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000000ada                prints
+                0x0000000000000a8c       0x48 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000000a8c                printchar
+ .text.prints   0x0000000000000ad4       0xe6 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000000ad4                prints
  .text.printInt
-                0x0000000000000bc0      0x10e c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000000bc0                printInt
+                0x0000000000000bba      0x10e c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000000bba                printInt
  .text.printLongLongInt
-                0x0000000000000cce        0x4 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000000cce                printLongLongInt
+                0x0000000000000cc8        0x4 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000000cc8                printLongLongInt
  .text.printDouble
-                0x0000000000000cd2        0x4 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000000cd2                printDouble
- .text.print    0x0000000000000cd6      0x352 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000000cd6                print
- .text.printf   0x0000000000001028       0x22 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
-                0x0000000000001028                printf
+                0x0000000000000ccc        0x4 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000000ccc                printDouble
+ .text.print    0x0000000000000cd0      0x352 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000000cd0                print
+ .text.printf   0x0000000000001022       0x22 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000001022                printf
  *(.rodata)
- *fill*         0x000000000000104a        0x2 
- .rodata        0x000000000000104c       0x74 ./User/main.o
+ *fill*         0x0000000000001044        0x0 
+ .rodata        0x0000000000001044       0x3c ./User/main.o
  *(.rodata*)
  .rodata.print.str1.4
-                0x00000000000010c0        0x8 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
+                0x0000000000001080        0x8 c:/mounriver/mounriver_studio2/resources/app/resources/win32/components/wch/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32ecxw/ilp32e\libprintf.a(wchprintf.o)
                                           0x7 (size before relaxing)
  *(.gnu.linkonce.t.*)
-                0x00000000000010c8                . = ALIGN (0x4)
+                0x0000000000001088                . = ALIGN (0x4)
 
-.rela.dyn       0x00000000000010c8        0x0
+.rela.dyn       0x0000000000001088        0x0
  .rela.text.main
-                0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
- .rela.init     0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
+                0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
+ .rela.init     0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
  .rela.text.handle_reset
-                0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
+                0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
  .rela.text.prints
-                0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
+                0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
  .rela.text.printInt
-                0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
+                0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
  .rela.text.print
-                0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
+                0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
  .rela.text.printf
-                0x00000000000010c8        0x0 ./User/ch32v003_gpio_driver.o
+                0x0000000000001088        0x0 ./User/ch32v003_gpio_driver.o
 
-.fini           0x00000000000010c8        0x0
+.fini           0x0000000000001088        0x0
  *(SORT_NONE(.fini))
-                0x00000000000010c8                . = ALIGN (0x4)
+                0x0000000000001088                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (_eitcm = .)
 
-.preinit_array  0x00000000000010c8        0x0
+.preinit_array  0x0000000000001088        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x00000000000010c8        0x0
+.init_array     0x0000000000001088        0x0
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x00000000000010c8        0x0
+.fini_array     0x0000000000001088        0x0
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
@@ -1195,15 +1193,15 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.dalign         0x0000000020000000        0x0 load address 0x00000000000010c8
+.dalign         0x0000000020000000        0x0 load address 0x0000000000001088
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                PROVIDE (_data_vma = .)
 
-.dlalign        0x00000000000010c8        0x0
-                0x00000000000010c8                . = ALIGN (0x4)
-                0x00000000000010c8                PROVIDE (_data_lma = .)
+.dlalign        0x0000000000001088        0x0
+                0x0000000000001088                . = ALIGN (0x4)
+                0x0000000000001088                PROVIDE (_data_lma = .)
 
-.data           0x0000000020000000       0x38 load address 0x00000000000010c8
+.data           0x0000000020000000       0x38 load address 0x0000000000001088
                 0x0000000020000000                . = ALIGN (0x4)
  *(.gnu.linkonce.r.*)
  *(.data .data.*)
@@ -1232,7 +1230,7 @@ END GROUP
                 0x0000000020000038                . = ALIGN (0x4)
                 0x0000000020000038                PROVIDE (_edata = .)
 
-.bss            0x0000000020000038        0x8 load address 0x0000000000001100
+.bss            0x0000000020000038        0x8 load address 0x00000000000010c0
                 0x0000000020000038                . = ALIGN (0x4)
                 0x0000000020000038                PROVIDE (_sbss = .)
  *(.sbss*)
@@ -1260,19 +1258,19 @@ END GROUP
                 0x0000000020000800                PROVIDE (_eusrstack = .)
 OUTPUT(GPIO_TESTING.elf elf32-littleriscv)
 
-.debug_info     0x0000000000000000     0x998d
+.debug_info     0x0000000000000000     0x996e
  .debug_info    0x0000000000000000      0xdea ./User/ch32v003_gpio_driver.o
  .debug_info    0x0000000000000dea      0xbc0 ./User/ch32v00x_it.o
- .debug_info    0x00000000000019aa      0xc85 ./User/main.o
- .debug_info    0x000000000000262f      0xc94 ./User/system_ch32v00x.o
- .debug_info    0x00000000000032c3      0xb02 ./User/testing.o
- .debug_info    0x0000000000003dc5       0x22 ./Startup/startup_ch32v00x.o
- .debug_info    0x0000000000003de7      0xa94 ./Peripheral/src/ch32v00x_dbgmcu.o
- .debug_info    0x000000000000487b     0x1034 ./Peripheral/src/ch32v00x_gpio.o
- .debug_info    0x00000000000058af      0xdca ./Peripheral/src/ch32v00x_misc.o
- .debug_info    0x0000000000006679     0x108c ./Peripheral/src/ch32v00x_rcc.o
- .debug_info    0x0000000000007705     0x1351 ./Peripheral/src/ch32v00x_usart.o
- .debug_info    0x0000000000008a56      0xf37 ./Debug/debug.o
+ .debug_info    0x00000000000019aa      0xc66 ./User/main.o
+ .debug_info    0x0000000000002610      0xc94 ./User/system_ch32v00x.o
+ .debug_info    0x00000000000032a4      0xb02 ./User/testing.o
+ .debug_info    0x0000000000003da6       0x22 ./Startup/startup_ch32v00x.o
+ .debug_info    0x0000000000003dc8      0xa94 ./Peripheral/src/ch32v00x_dbgmcu.o
+ .debug_info    0x000000000000485c     0x1034 ./Peripheral/src/ch32v00x_gpio.o
+ .debug_info    0x0000000000005890      0xdca ./Peripheral/src/ch32v00x_misc.o
+ .debug_info    0x000000000000665a     0x108c ./Peripheral/src/ch32v00x_rcc.o
+ .debug_info    0x00000000000076e6     0x1351 ./Peripheral/src/ch32v00x_usart.o
+ .debug_info    0x0000000000008a37      0xf37 ./Debug/debug.o
 
 .debug_abbrev   0x0000000000000000     0x1f2a
  .debug_abbrev  0x0000000000000000      0x2d0 ./User/ch32v003_gpio_driver.o
@@ -1338,44 +1336,44 @@ OUTPUT(GPIO_TESTING.elf elf32-littleriscv)
  .debug_ranges  0x0000000000000330       0xf0 ./Peripheral/src/ch32v00x_usart.o
  .debug_ranges  0x0000000000000420       0x40 ./Debug/debug.o
 
-.debug_line     0x0000000000000000     0x5af2
+.debug_line     0x0000000000000000     0x5ad2
  .debug_line    0x0000000000000000      0x8fe ./User/ch32v003_gpio_driver.o
  .debug_line    0x00000000000008fe      0x35e ./User/ch32v00x_it.o
- .debug_line    0x0000000000000c5c      0x4df ./User/main.o
- .debug_line    0x000000000000113b      0x7a9 ./User/system_ch32v00x.o
- .debug_line    0x00000000000018e4      0x40b ./User/testing.o
- .debug_line    0x0000000000001cef      0x148 ./Startup/startup_ch32v00x.o
- .debug_line    0x0000000000001e37      0x439 ./Peripheral/src/ch32v00x_dbgmcu.o
- .debug_line    0x0000000000002270      0xcd0 ./Peripheral/src/ch32v00x_gpio.o
- .debug_line    0x0000000000002f40      0x4b0 ./Peripheral/src/ch32v00x_misc.o
- .debug_line    0x00000000000033f0      0xed7 ./Peripheral/src/ch32v00x_rcc.o
- .debug_line    0x00000000000042c7      0xfe1 ./Peripheral/src/ch32v00x_usart.o
- .debug_line    0x00000000000052a8      0x84a ./Debug/debug.o
+ .debug_line    0x0000000000000c5c      0x4bf ./User/main.o
+ .debug_line    0x000000000000111b      0x7a9 ./User/system_ch32v00x.o
+ .debug_line    0x00000000000018c4      0x40b ./User/testing.o
+ .debug_line    0x0000000000001ccf      0x148 ./Startup/startup_ch32v00x.o
+ .debug_line    0x0000000000001e17      0x439 ./Peripheral/src/ch32v00x_dbgmcu.o
+ .debug_line    0x0000000000002250      0xcd0 ./Peripheral/src/ch32v00x_gpio.o
+ .debug_line    0x0000000000002f20      0x4b0 ./Peripheral/src/ch32v00x_misc.o
+ .debug_line    0x00000000000033d0      0xed7 ./Peripheral/src/ch32v00x_rcc.o
+ .debug_line    0x00000000000042a7      0xfe1 ./Peripheral/src/ch32v00x_usart.o
+ .debug_line    0x0000000000005288      0x84a ./Debug/debug.o
 
-.debug_str      0x0000000000000000     0x1966
+.debug_str      0x0000000000000000     0x195b
  .debug_str     0x0000000000000000      0x793 ./User/ch32v003_gpio_driver.o
                                         0x807 (size before relaxing)
  .debug_str     0x0000000000000793      0x149 ./User/ch32v00x_it.o
                                         0x6ac (size before relaxing)
- .debug_str     0x00000000000008dc      0x2d4 ./User/main.o
-                                        0x833 (size before relaxing)
- .debug_str     0x0000000000000bb0       0xe2 ./User/system_ch32v00x.o
+ .debug_str     0x00000000000008dc      0x2c9 ./User/main.o
+                                        0x828 (size before relaxing)
+ .debug_str     0x0000000000000ba5       0xe2 ./User/system_ch32v00x.o
                                         0x76f (size before relaxing)
- .debug_str     0x0000000000000c92       0x68 ./User/testing.o
+ .debug_str     0x0000000000000c87       0x68 ./User/testing.o
                                         0x6af (size before relaxing)
- .debug_str     0x0000000000000cfa       0x2a ./Startup/startup_ch32v00x.o
+ .debug_str     0x0000000000000cef       0x2a ./Startup/startup_ch32v00x.o
                                          0x61 (size before relaxing)
- .debug_str     0x0000000000000d24       0xb7 ./Peripheral/src/ch32v00x_dbgmcu.o
+ .debug_str     0x0000000000000d19       0xb7 ./Peripheral/src/ch32v00x_dbgmcu.o
                                         0x66d (size before relaxing)
- .debug_str     0x0000000000000ddb      0x1f2 ./Peripheral/src/ch32v00x_gpio.o
+ .debug_str     0x0000000000000dd0      0x1f2 ./Peripheral/src/ch32v00x_gpio.o
                                         0x96a (size before relaxing)
- .debug_str     0x0000000000000fcd      0x2a7 ./Peripheral/src/ch32v00x_misc.o
+ .debug_str     0x0000000000000fc2      0x2a7 ./Peripheral/src/ch32v00x_misc.o
                                         0x932 (size before relaxing)
- .debug_str     0x0000000000001274      0x2c7 ./Peripheral/src/ch32v00x_rcc.o
+ .debug_str     0x0000000000001269      0x2c7 ./Peripheral/src/ch32v00x_rcc.o
                                         0x9d8 (size before relaxing)
- .debug_str     0x000000000000153b      0x389 ./Peripheral/src/ch32v00x_usart.o
+ .debug_str     0x0000000000001530      0x389 ./Peripheral/src/ch32v00x_usart.o
                                         0xb27 (size before relaxing)
- .debug_str     0x00000000000018c4       0xa2 ./Debug/debug.o
+ .debug_str     0x00000000000018b9       0xa2 ./Debug/debug.o
                                         0x928 (size before relaxing)
 
 .comment        0x0000000000000000       0x33
