@@ -1,6 +1,6 @@
 # CHV003 GPIO DRIVER
 
-A custom GPIO driver developed for the CHV003 microcontroller (MCU), specifically designed for the CHV003F4P6 board. 
+A custom GPIO driver developed for the CHV003 MCU series.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -13,9 +13,9 @@ A custom GPIO driver developed for the CHV003 microcontroller (MCU), specificall
 
 ## Overview
 
-This project was initiated to gain hands-on experience with reading datasheets from vendors outside of ST and ARM. I chose the RISC-V-based CHV003 series microcontrollers, as these are gaining popularity due to their open source nature. 
+This project was initiated to gain hands-on experience with reading datasheets from vendors outside of ST and ARM. I chose the RISC-V-based CHV003 series microcontrollers, as these are gaining popularity due to their cost and open source nature. 
 
-The **CHV003 GPIO Driver** provides an abstraction layer for configuring and controlling the General-Purpose Input/Output (GPIO) pins, ensuring a structured and efficient way to interact with the microcontroller’s peripherals.
+This driver simplifies GPIO operations on CH32V003 MCUs by providing an easy-to-use abstraction layer for initialization, data handling, and interrupt management.
 
 ## Key Features
 
@@ -28,34 +28,44 @@ Each of the API functions in the driver have an easy-to-understand description b
 
 ```
 CHV003_GPIO_Driver/
+├── .mrs/                    
 ├── Core/
-│   ├── gpio.c
-│   └── gpio.h
-├── Startup/
-│   ├── startup.s
-│   └── system_init.c
-├── User/
-│   ├── main.c
-│   └── user_config.h
-├── Testing/
-│   ├── test_gpio.c
-│   └── mock_gpio.h
 ├── Ld/
-│   └── linker_script.ld
-├── .gitignore
-├── README.md
-└── CHV003_GPIO_Driver.wvproj
+├── Startup/
+├── Testing/
+│   ├── Testing code/              // Has the testing code which utilizes WCH Libraries to test  
+│   └── Testing Results/           // Included videos and images of tests and their results
+├── User/
+│   ├── ch32v003.h                 // The main files that include the system specific header file and 
+│   └── ch32v003_gpio_driver.c     // GPIO driver header and source file
+│   ├── ch32v003_gpio_driver.h
+├── obj/
+├── .cproject
+├── .gitignore.txt
+├── .project
+├── .template
+├── CHV003_GPIO_Driver.launch
+├── CHV003_GPIO_Driver.wvproj     // The main project file generated in MounRiverStudio
+└── README.md
 ```
 
 ## Testing
 
-Unit tests are available in the `Testing/` directory. These tests validate the functionality of the GPIO driver and can be executed using an embedded-compatible testing framework.
+Unit tests are available in the `Testing/` directory. These tests validate the functionality of the GPIO driver and can be executed using an embedded-compatible testing framework. Testing was done on the CH32V003F4P6 board. The code and results are provided. Three types of tests were carried out:
+1. **Hardware Testing**  
+   - Configured a GPIO pin to toggle an LED with a delay.  
+   - Verified correct timing and response.  
+2. **SWDIO (Debugging) Testing**  
+   - Configured a GPIO pin as a trigger for another pin acting as an interrupt.  
+   - Used MounRiver Studio’s **memory window** to observe real-time register changes.  
+3. **UART Testing**  
+   - Configured a GPIO pin to toggle while another acted as an input.  
+   - Sent GPIO states over UART and confirmed output via the serial monitor.  
 
 ## Getting Started
 
 ### Prerequisites
 - **Development Environment**: [MounRiver Studio IDE](http://www.mounriver.com/)
-- **Toolchain**: RISC-V GCC Compiler
 - **Hardware**: CHV003F4P6 development board
 
 ### Installation
@@ -65,9 +75,10 @@ Unit tests are available in the `Testing/` directory. These tests validate the f
    ```
 2. **Open the Project**:
    Load the `CHV003_GPIO_Driver.wvproj` file in MounRiver Studio IDE.
-3. **Build the Project**:
-   Compile the source code to generate the firmware binary.
-4. **Flash the Firmware**:
-   Upload the binary to the CHV003F4P6 board using a compatible programmer.
+3. **Use the Driver in Your Project**
+   - To integrate into your own project, **copy the files** in `User/` into your workspace.  
+   - Alternatively, modify the provided project by adding a `main.c` file in `User/` and start coding!
+
+
 
 
