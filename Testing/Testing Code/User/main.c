@@ -84,7 +84,7 @@ int main(void)
     USARTx_CFG(); // Initialize USART1 (PD5=RX, PD6=TX)
 
     /*
-    //UART TEST print variable
+    // UART TEST print variable      @UART_TEST
     uint8_t UART_value[2];  
     */
     while (1)
@@ -98,9 +98,22 @@ int main(void)
             printf("Received and inverted: %x\r\n", val);
         }
 
-        R_INTERRUPT_TEST();
         /*
-        //UART TEST
+        // LED HARDWARE TEST        @LED_TEST
+        
+        R_LED_TEST();
+        
+        */
+
+        /*
+        // SWDIO INTERRUPT TEST     @INTERRUPT_TEST
+
+        R_INTERRUPT_TEST();
+        */
+
+        
+        /*
+        // UART TEST                 @UART_TEST
 
         R_UART_TEST(UART_value);
         printf("UART Test Pin value is %d\n",UART_value[0]);
